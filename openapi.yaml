@@ -1,0 +1,95 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Users API
+paths:
+  /users:
+    get:
+      description: Список пользователей
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  properties:
+                    id:
+                      title: Id
+                      type: integer
+                    name:
+                      title: Name
+                      type: string
+                  required:
+                  - id
+                  - name
+                  title: User
+                  type: object
+    post:
+      description: Создать пользователя
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                name:
+                  maxLength: 50
+                  minLength: 1
+                  title: Name
+                  type: string
+              required:
+              - name
+              title: UserCreate
+              type: object
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    title: Id
+                    type: integer
+                  name:
+                    title: Name
+                    type: string
+                required:
+                - id
+                - name
+                title: User
+                type: object
+  /users/{user_id}:
+    get:
+      description: Получить пользователя
+      parameters:
+      - in: path
+        name: user_id
+        required: true
+        schema:
+          description: Идентификатор пользователя
+          minimum: 1
+          title: user_id
+          type: integer
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    title: Id
+                    type: integer
+                  name:
+                    title: Name
+                    type: string
+                required:
+                - id
+                - name
+                title: User
+                type: object
+        '404':
+          description: ''
+          content: {}
